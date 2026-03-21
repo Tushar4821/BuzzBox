@@ -15,6 +15,15 @@ import { GameProvider } from './games/GameContext.jsx'
 import PassThePhone from './games/PassThePhone.jsx'
 import GeneralKnowledge from './games/GeneralKnowledge.jsx'
 import WouldYouRather from './games/WouldYouRather.jsx'
+import NeverHaveIEver from './games/NeverHaveIEver.jsx'
+import SipOrSpill from './games/SipOrSpill.jsx'
+import HotTakes from './games/HotTakes.jsx'
+import GuessTheLink from './games/GuessTheLink.jsx'
+import DeepQuestions from './games/DeepQuestions.jsx'
+import ThisOrThatCouples from './games/ThisOrThatCouples.jsx'
+import HowWellDoYouKnowMe from './games/HowWellDoYouKnowMe.jsx'
+import WhoIsTheImposter from './games/WhoIsTheImposter.jsx'
+import RapBattle from './games/RapBattle.jsx'
 
 const router = createBrowserRouter([{
     path : '/',
@@ -51,6 +60,42 @@ const router = createBrowserRouter([{
       {
        path: "/games/general-knowledge",
       element: <GeneralKnowledge/>,
+      },
+      {
+       path: "/games/never-have-i-ever",
+      element: <NeverHaveIEver/>,
+      },
+      {
+       path: "/games/sip-or-spill",
+      element: <SipOrSpill/>,
+      },
+       {
+       path: "/games/hot-takes",
+      element: <HotTakes/>,
+      },
+      {
+       path: "/games/guess-the-link",
+      element: <GuessTheLink/>,
+      },
+      {
+       path: "/games/deep-questions",
+      element: <DeepQuestions/>,
+      },
+      {
+      path: "/games/this-or-that",
+      element: <ThisOrThatCouples/>,
+      },
+      {
+      path: "/games/how-well-do-you-know-me",
+      element: <HowWellDoYouKnowMe/>,
+      },
+      {
+      path: "/games/who-is-the-imposter",
+      element: <WhoIsTheImposter/>,
+      },
+      {
+      path: "/games/rap-battle",
+      element: <RapBattle/>,
       },
       {
         path : '/Challenges',

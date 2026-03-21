@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
-import card1 from '../../../assets/homeImg/card2.jpg'
-import card2 from '../../../assets/homeImg/card1.jpg'
-import card3 from '../../../assets/homeImg/card3.jpg'
-import card4 from '../../../assets/homeImg/card4.jpg'
-import card5 from '../../../assets/homeImg/card5.jpg'
-import card6 from '../../../assets/homeImg/card6.jpg'
-import card7 from '../../../assets/gameImg/card7.jpg'
-import card8 from '../../../assets/gameImg/card8.jpg'
-import card9 from '../../../assets/gameImg/card9.jpg'
-import card10 from '../../../assets/gameImg/card10.jpg'
-import card11 from '../../../assets/gameImg/card11.jpg'
-import card12 from '../../../assets/gameImg/card12.jpg'
-import card13 from '../../../assets/gameImg/card13.jpg'
-import card14 from '../../../assets/gameImg/card14.jpg'
-import card15 from '../../../assets/gameImg/card15.gif'
+import card1 from "../../../assets/homeImg/card2.jpg";
+import card2 from "../../../assets/homeImg/card1.jpg";
+import card3 from "../../../assets/homeImg/card3.jpg";
+import card4 from "../../../assets/homeImg/card4.jpg";
+import card5 from "../../../assets/homeImg/card5.jpg";
+import card6 from "../../../assets/homeImg/card6.jpg";
+import card7 from "../../../assets/gameImg/card7.jpg";
+import card8 from "../../../assets/gameImg/card8.jpg";
+import card9 from "../../../assets/gameImg/card9.jpg";
+import card10 from "../../../assets/gameImg/card10.jpg";
+import card11 from "../../../assets/gameImg/card11.jpg";
+import card12 from "../../../assets/gameImg/card12.jpg";
+import card13 from "../../../assets/gameImg/card13.jpg";
+import card14 from "../../../assets/gameImg/card14.jpg";
+import card15 from "../../../assets/gameImg/card15.gif";
 
 function GamesLibrary() {
   const categories = [
@@ -36,6 +36,7 @@ function GamesLibrary() {
       players: "2+ Players",
       mode: "Drinking Optional",
       img: card1,
+      path: "/games/truth-or-dare",
     },
     {
       title: "Never Have I Ever",
@@ -44,6 +45,7 @@ function GamesLibrary() {
       players: "3+ Players",
       mode: "Drinking Optional",
       img: card2,
+      path: "/games/never-have-i-ever",
     },
     {
       title: "Most Likely To",
@@ -52,6 +54,7 @@ function GamesLibrary() {
       players: "3+ Players",
       mode: "Non-Drinking",
       img: card3,
+      path: "/games/most-likely-to",
     },
     {
       title: "Would You Rather",
@@ -60,6 +63,7 @@ function GamesLibrary() {
       players: "2+ Players",
       mode: "Fun",
       img: card4,
+      path: "/games/would-you-rather",
     },
     {
       title: "Sip or Spill",
@@ -68,6 +72,7 @@ function GamesLibrary() {
       players: "2+ Players",
       mode: "Drinking",
       img: card5,
+      path: "/games/sip-or-spill",
     },
     {
       title: "Hot Takes",
@@ -76,79 +81,89 @@ function GamesLibrary() {
       players: "3+ Players",
       mode: "Non-Drinking",
       img: card6,
+      path: "/games/hot-takes",
     },
     {
-    title: "Guess The Link",
-    desc: "Find the hidden connection between words.",
-    category: "Group",
-    players: "2+ Players",
-    mode: "Non-Drinking",
-    img: card7,
-  },
-  {
-    title: "Category Rush",
-    desc: "Name items in a category before time runs out.",
-    category: "Group",
-    players: "2+ Players",
-    mode: "Non-Drinking",
-    img: card8,
-  },
-  {
-    title: "General Knowledge",
-    desc: "Test your brain with fun and tricky questions.",
-    category: "Non-Drinking",
-    players: "Solo / Group",
-    mode: "Quiz",
-    img: card9,
-  },
-  {
-    title: "Deep Questions",
-    desc: "Ask meaningful questions and connect deeper.",
-    category: "Couple",
-    players: "2 Players",
-    mode: "Couple",
-    img: card10,
-  },
-  {
-    title: "This or That",
-    desc: "Choose and see if your partner matches.",
-    category: "Couple",
-    players: "2 Players",
-    mode: "Couple",
-    img: card11,
-  },
-  {
-    title: "How Well Do You Know Me",
-    desc: "Test your bond and knowledge of each other.",
-    category: "Couple",
-    players: "2 Players",
-    mode: "Couple",
-    img: card12,
-  },
-   {
-    title: "Who's The Imposter",
-    desc: "One player is secretly the imposter. Find them before it's too late.",
-    category: "Group",
-    players: "4+ Players",
-    mode: "Non-Drinking",
-    img: card13,
-  },
-  {
-    title: "Pass The Phone",
-    desc: "Pass the phone to someone who fits the prompt. Expose your friends.",
-    category: "Party",
-    players: "3+ Players",
-    mode: "Fun",
-    img: card14,
-  },
-  {
-    title: "Rap Battle",
-    desc: "Get a word and drop a rap using it. Best flow wins.",
-    category: "Party",
-    players: "2+ Players",
-    mode: "Fun",
-    img: card15,
-  },
+      title: "Guess The Link",
+      desc: "Find the hidden connection between words.",
+      category: "Group",
+      players: "2+ Players",
+      mode: "Non-Drinking",
+      img: card7,
+      path: "/games/guess-the-link",
+    },
+    {
+      title: "Category Rush",
+      desc: "Name items in a category before time runs out.",
+      category: "Group",
+      players: "2+ Players",
+      mode: "Non-Drinking",
+      img: card8,
+      path: "/games/category-rush",
+    },
+    {
+      title: "General Knowledge",
+      desc: "Test your brain with fun and tricky questions.",
+      category: "Non-Drinking",
+      players: "Solo / Group",
+      mode: "Quiz",
+      img: card9,
+      path: "/games/general-knowledge",
+    },
+    {
+      title: "Deep Questions",
+      desc: "Ask meaningful questions and connect deeper.",
+      category: "Couple",
+      players: "2 Players",
+      mode: "Couple",
+      img: card10,
+      path: "/games/deep-questions",
+    },
+    {
+      title: "This or That",
+      desc: "Choose and see if your partner matches.",
+      category: "Couple",
+      players: "2 Players",
+      mode: "Couple",
+      img: card11,
+      path: "/games/this-or-that",
+    },
+    {
+      title: "How Well Do You Know Me",
+      desc: "Test your bond and knowledge of each other.",
+      category: "Couple",
+      players: "2 Players",
+      mode: "Couple",
+      img: card12,
+      path: "/games/how-well-do-you-know-me",
+    },
+    {
+      title: "Who is The Imposter",
+      desc: "One player is secretly the imposter. Find them before it's too late.",
+      category: "Group",
+      players: "4+ Players",
+      mode: "Non-Drinking",
+      img: card13,
+      path: "/games/who-is-the-imposter",
+    },
+    {
+      title: "Pass The Phone",
+      desc: "Pass the phone to someone who fits the prompt. Expose your friends.",
+      category: "Party",
+      players: "3+ Players",
+      mode: "Fun",
+      img: card14,
+      path: "/games/pass-the-phone",
+    },
+    {
+      title: "Rap Battle",
+      desc: "Get a word and drop a rap using it. Best flow wins.",
+      category: "Party",
+      players: "2+ Players",
+      mode: "Fun",
+      img: card15,
+      path: "/games/rap-battle",
+    },
   ];
 
   const [activeCategory, setActiveCategory] = useState("All");
@@ -230,7 +245,7 @@ function GamesLibrary() {
                 </p>
 
                 <NavLink
-                  to={`/games/${game.title.toLowerCase().replace(/\s+/g, "-")}`}
+                  to={game.path}
                   className="block w-full rounded-xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-4 py-2.5 text-center text-sm font-semibold transition hover:scale-[1.02]"
                 >
                   Play Now

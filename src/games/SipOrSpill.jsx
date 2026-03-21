@@ -5,14 +5,15 @@ import {
   Flame,
   GlassWater,
   Users,
-  Split,
-  Check,
+  MessageCircleQuestion,
+  Wine,
+  Drama,
 } from "lucide-react";
-import { wouldYouRatherQuestions } from "../data/wouldYouRatherData";
+import { sipOrSpillQuestions } from "../data/sipOrSpillData";
 import useGame from "./tempGame";
 import PlayerSetup from "./PlayerSetup";
 
-function WouldYouRather() {
+function SipOrSpill() {
   const {
     players,
     currentPlayer,
@@ -23,44 +24,45 @@ function WouldYouRather() {
   } = useGame();
 
   const [step, setStep] = useState("players");
-  const [currentPrompt, setCurrentPrompt] = useState(null);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [question, setQuestion] = useState("");
+  const [actionTaken, setActionTaken] = useState("");
 
-  const getRandomPrompt = () => {
-    const source = wouldYouRatherQuestions[mode];
+  const getRandomQuestion = () => {
+    const source = sipOrSpillQuestions[mode];
 
-    if (!source || source.length === 0) {
-      return;
-    }
+    if (!source || source.length === 0) return;
 
     const random = source[Math.floor(Math.random() * source.length)];
-    setCurrentPrompt(random);
-    setSelectedOption("");
+    setQuestion(random);
+    setActionTaken("");
     setStep("question");
   };
 
   const handleModeSelect = (selectedMode) => {
     setMode(selectedMode);
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setQuestion("");
+    setActionTaken("");
     setStep("ready");
   };
 
-  const handleSelect = (option) => {
-    if (selectedOption) return;
-    setSelectedOption(option);
+  const handleSpill = () => {
+    setActionTaken("spill");
+  };
+
+  const handleSip = () => {
+    setActionTaken("sip");
   };
 
   const handleNextPlayer = () => {
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setQuestion("");
+    setActionTaken("");
     nextTurn();
     setStep("ready");
   };
 
   const handleReset = () => {
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setQuestion("");
+    setActionTaken("");
     setStep("players");
     resetContextGame();
   };
@@ -86,11 +88,11 @@ function WouldYouRather() {
           </div>
 
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            Would You Rather
+            Sip or Spill
           </h1>
 
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/65 sm:text-base">
-            Pick your poison and defend your choice.
+            Answer honestly... or take the consequence.
           </p>
         </motion.div>
 
@@ -111,11 +113,11 @@ function WouldYouRather() {
               </div>
 
               <h2 className="text-2xl font-semibold sm:text-3xl">
-                Pick your vibe
+                Pick your mode
               </h2>
 
               <p className="mt-3 text-sm text-white/60 sm:text-base">
-                Choose your mode first.
+                Choose how chaotic you want this round to be.
               </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -129,7 +131,7 @@ function WouldYouRather() {
                   </div>
                   <h3 className="text-xl font-semibold">Drinking Mode</h3>
                   <p className="mt-2 text-sm text-white/65">
-                    Riskier choices for a messier night.
+                    Spill the tea or take a sip.
                   </p>
                 </button>
 
@@ -143,7 +145,7 @@ function WouldYouRather() {
                   </div>
                   <h3 className="text-xl font-semibold">Non-Drinking Mode</h3>
                   <p className="mt-2 text-sm text-white/65">
-                    Spicy choices without the drinks.
+                    Spill the truth or take a fun penalty.
                   </p>
                 </button>
               </div>
@@ -171,16 +173,16 @@ function WouldYouRather() {
               </div>
 
               <h2 className="text-2xl font-semibold sm:text-3xl">
-                Ready to choose?
+                Ready for the question?
               </h2>
 
               <p className="mt-3 text-sm text-white/60 sm:text-base">
-                No safe option. Just pick one.
+                You either answer honestly... or face the consequence.
               </p>
 
               <button
                 type="button"
-                onClick={getRandomPrompt}
+                onClick={getRandomQuestion}
                 className="mt-8 rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-8 py-4 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-[1.02]"
               >
                 Start Round
@@ -188,7 +190,7 @@ function WouldYouRather() {
             </div>
           )}
 
-          {step === "question" && currentPrompt && (
+          {step === "question" && question && (
             <div className="text-center">
               <div className="mb-4 flex flex-wrap justify-center gap-3">
                 <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-pink-300">
@@ -201,66 +203,69 @@ function WouldYouRather() {
               </div>
 
               <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">
-                <Split size={16} />
-                Choose one and own it
+                <MessageCircleQuestion size={16} />
+                Spill... or escape
               </div>
 
-              <p className="mb-8 text-lg text-white/90 sm:text-2xl">
-                {currentPrompt.question}
-              </p>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[currentPrompt.optionA, currentPrompt.optionB].map((option, index) => {
-                  const isPicked = selectedOption === option;
-
-                  return (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={() => handleSelect(option)}
-                      className={`rounded-3xl border p-6 text-left transition duration-300 ${
-                        isPicked
-                          ? "border-pink-400/40 bg-linear-to-br from-pink-500/20 via-purple-500/10 to-transparent"
-                          : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/8"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <p className="text-base font-medium text-white/90 sm:text-lg">
-                          {option}
-                        </p>
-
-                        {isPicked && (
-                          <span className="rounded-full bg-pink-500/20 p-2 text-pink-300">
-                            <Check size={16} />
-                          </span>
-                        )}
-                      </div>
-                    </button>
-                  );
-                })}
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8">
+                <p className="text-lg leading-relaxed text-white/90 sm:text-2xl">
+                  {question}
+                </p>
               </div>
 
-              {selectedOption && (
+              {!actionTaken && (
+                <div className="mt-8 flex flex-wrap justify-center gap-4">
+                  <button
+                    type="button"
+                    onClick={handleSpill}
+                    className="rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:scale-[1.02]"
+                  >
+                    Spill
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleSip}
+                    className="rounded-2xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white/90 transition duration-300 hover:bg-white/10"
+                  >
+                    {mode === "drinking" ? "Sip" : "Penalty"}
+                  </button>
+                </div>
+              )}
+
+              {actionTaken === "spill" && (
                 <div className="mt-8">
-                  <div className="mx-auto inline-flex rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 text-sm text-green-300">
-                    You picked: {selectedOption}
+                  <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 text-sm text-green-300">
+                    <Drama size={16} />
+                    Spill accepted
                   </div>
+                  <p className="mt-4 text-sm text-white/70 sm:text-base">
+                    {currentPlayer} has to answer honestly 😈
+                  </p>
+                </div>
+              )}
 
-                  {mode === "drinking" && (
-                    <p className="mt-4 text-sm text-pink-300">
-                      Anyone who would never choose this takes a sip 🍻
-                    </p>
-                  )}
+              {actionTaken === "sip" && (
+                <div className="mt-8">
+                  <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-yellow-500/20 bg-yellow-500/10 px-4 py-2 text-sm text-yellow-300">
+                    <Wine size={16} />
+                    Escape chosen
+                  </div>
+                  <p className="mt-4 text-sm text-white/70 sm:text-base">
+                    {mode === "drinking"
+                      ? `${currentPlayer} takes a sip 🍻`
+                      : `${currentPlayer} skips the answer and does a mini penalty 😏`}
+                  </p>
                 </div>
               )}
 
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <button
                   type="button"
-                  onClick={getRandomPrompt}
+                  onClick={getRandomQuestion}
                   className="rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-6 py-3 text-sm font-semibold text-white"
                 >
-                  Next Prompt
+                  Next Question
                 </button>
 
                 <button
@@ -295,4 +300,4 @@ function WouldYouRather() {
   );
 }
 
-export default WouldYouRather;
+export default SipOrSpill;

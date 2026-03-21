@@ -5,14 +5,16 @@ import {
   Flame,
   GlassWater,
   Users,
-  Split,
-  Check,
+  Link2,
+  Eye,
+  EyeOff,
+  Lightbulb,
 } from "lucide-react";
-import { wouldYouRatherQuestions } from "../data/wouldYouRatherData";
+import { guessTheLinkData } from "../data/guessTheLinkData";
 import useGame from "./tempGame";
 import PlayerSetup from "./PlayerSetup";
 
-function WouldYouRather() {
+function GuessTheLink() {
   const {
     players,
     currentPlayer,
@@ -23,44 +25,45 @@ function WouldYouRather() {
   } = useGame();
 
   const [step, setStep] = useState("players");
-  const [currentPrompt, setCurrentPrompt] = useState(null);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [currentSet, setCurrentSet] = useState(null);
+  const [showAnswer, setShowAnswer] = useState(false);
 
-  const getRandomPrompt = () => {
-    const source = wouldYouRatherQuestions[mode];
+  const getRandomSet = () => {
+    const source = guessTheLinkData[mode];
 
-    if (!source || source.length === 0) {
-      return;
-    }
+    if (!source || source.length === 0) return;
 
     const random = source[Math.floor(Math.random() * source.length)];
-    setCurrentPrompt(random);
-    setSelectedOption("");
+    setCurrentSet(random);
+    setShowAnswer(false);
     setStep("question");
   };
 
   const handleModeSelect = (selectedMode) => {
     setMode(selectedMode);
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setCurrentSet(null);
+    setShowAnswer(false);
     setStep("ready");
   };
 
-  const handleSelect = (option) => {
-    if (selectedOption) return;
-    setSelectedOption(option);
+  const handleRevealAnswer = () => {
+    setShowAnswer(true);
+  };
+
+  const handleHideAnswer = () => {
+    setShowAnswer(false);
   };
 
   const handleNextPlayer = () => {
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setCurrentSet(null);
+    setShowAnswer(false);
     nextTurn();
     setStep("ready");
   };
 
   const handleReset = () => {
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setCurrentSet(null);
+    setShowAnswer(false);
     setStep("players");
     resetContextGame();
   };
@@ -86,11 +89,12 @@ function WouldYouRather() {
           </div>
 
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            Would You Rather
+            Guess The Link
           </h1>
 
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/65 sm:text-base">
-            Pick your poison and defend your choice.
+            Find the hidden connection between the clues before the answer is
+            revealed.
           </p>
         </motion.div>
 
@@ -111,11 +115,11 @@ function WouldYouRather() {
               </div>
 
               <h2 className="text-2xl font-semibold sm:text-3xl">
-                Pick your vibe
+                Pick your mode
               </h2>
 
               <p className="mt-3 text-sm text-white/60 sm:text-base">
-                Choose your mode first.
+                Choose the kind of clues you want for this round.
               </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -129,7 +133,7 @@ function WouldYouRather() {
                   </div>
                   <h3 className="text-xl font-semibold">Drinking Mode</h3>
                   <p className="mt-2 text-sm text-white/65">
-                    Riskier choices for a messier night.
+                    Party-style clues with a more chaotic vibe.
                   </p>
                 </button>
 
@@ -143,7 +147,7 @@ function WouldYouRather() {
                   </div>
                   <h3 className="text-xl font-semibold">Non-Drinking Mode</h3>
                   <p className="mt-2 text-sm text-white/65">
-                    Spicy choices without the drinks.
+                    Fun clue rounds for everyone to guess together.
                   </p>
                 </button>
               </div>
@@ -171,16 +175,16 @@ function WouldYouRather() {
               </div>
 
               <h2 className="text-2xl font-semibold sm:text-3xl">
-                Ready to choose?
+                Ready to guess the link?
               </h2>
 
               <p className="mt-3 text-sm text-white/60 sm:text-base">
-                No safe option. Just pick one.
+                Read the clues carefully and figure out what connects them.
               </p>
 
               <button
                 type="button"
-                onClick={getRandomPrompt}
+                onClick={getRandomSet}
                 className="mt-8 rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-8 py-4 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-[1.02]"
               >
                 Start Round
@@ -188,7 +192,7 @@ function WouldYouRather() {
             </div>
           )}
 
-          {step === "question" && currentPrompt && (
+          {step === "question" && currentSet && (
             <div className="text-center">
               <div className="mb-4 flex flex-wrap justify-center gap-3">
                 <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-pink-300">
@@ -201,66 +205,82 @@ function WouldYouRather() {
               </div>
 
               <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">
-                <Split size={16} />
-                Choose one and own it
+                <Link2 size={16} />
+                Find the connection
               </div>
-
-              <p className="mb-8 text-lg text-white/90 sm:text-2xl">
-                {currentPrompt.question}
-              </p>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                {[currentPrompt.optionA, currentPrompt.optionB].map((option, index) => {
-                  const isPicked = selectedOption === option;
-
-                  return (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={() => handleSelect(option)}
-                      className={`rounded-3xl border p-6 text-left transition duration-300 ${
-                        isPicked
-                          ? "border-pink-400/40 bg-linear-to-br from-pink-500/20 via-purple-500/10 to-transparent"
-                          : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/8"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <p className="text-base font-medium text-white/90 sm:text-lg">
-                          {option}
-                        </p>
-
-                        {isPicked && (
-                          <span className="rounded-full bg-pink-500/20 p-2 text-pink-300">
-                            <Check size={16} />
-                          </span>
-                        )}
-                      </div>
-                    </button>
-                  );
-                })}
+                {currentSet.items.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, delay: index * 0.08 }}
+                    className="rounded-3xl border border-white/10 bg-white/5 p-5 text-center shadow-lg"
+                  >
+                    <p className="text-lg font-semibold text-white/90 sm:text-xl">
+                      {item}
+                    </p>
+                  </motion.div>
+                ))}
               </div>
 
-              {selectedOption && (
+              {!showAnswer && (
                 <div className="mt-8">
-                  <div className="mx-auto inline-flex rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 text-sm text-green-300">
-                    You picked: {selectedOption}
+                  <p className="mb-4 text-sm text-white/60 sm:text-base">
+                    Discuss with the group and try to guess the hidden link.
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={handleRevealAnswer}
+                    className="inline-flex items-center gap-2 rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:scale-[1.02]"
+                  >
+                    <Eye size={18} />
+                    Reveal Answer
+                  </button>
+                </div>
+              )}
+
+              {showAnswer && (
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35 }}
+                  className="mt-8"
+                >
+                  <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-yellow-500/20 bg-yellow-500/10 px-4 py-2 text-sm text-yellow-300">
+                    <Lightbulb size={16} />
+                    Answer Revealed
                   </div>
 
-                  {mode === "drinking" && (
-                    <p className="mt-4 text-sm text-pink-300">
-                      Anyone who would never choose this takes a sip 🍻
+                  <div className="mt-4 rounded-3xl border border-yellow-500/20 bg-yellow-500/10 p-6">
+                    <p className="text-sm uppercase tracking-[0.2em] text-yellow-200/70">
+                      The link is
                     </p>
-                  )}
-                </div>
+                    <p className="mt-2 text-xl font-semibold text-white sm:text-2xl">
+                      {currentSet.answer}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleHideAnswer}
+                    className="mt-4 inline-flex items-center gap-2 text-sm text-white/60 transition hover:text-white"
+                  >
+                    <EyeOff size={16} />
+                    Hide answer
+                  </button>
+                </motion.div>
               )}
 
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <button
                   type="button"
-                  onClick={getRandomPrompt}
+                  onClick={getRandomSet}
                   className="rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-6 py-3 text-sm font-semibold text-white"
                 >
-                  Next Prompt
+                  Next Link
                 </button>
 
                 <button
@@ -295,4 +315,4 @@ function WouldYouRather() {
   );
 }
 
-export default WouldYouRather;
+export default GuessTheLink;

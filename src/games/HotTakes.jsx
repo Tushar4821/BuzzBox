@@ -5,14 +5,16 @@ import {
   Flame,
   GlassWater,
   Users,
-  Split,
-  Check,
+  BadgeAlert,
+  ThumbsUp,
+  ThumbsDown,
+  MessageSquare,
 } from "lucide-react";
-import { wouldYouRatherQuestions } from "../data/wouldYouRatherData";
+import { hotTakesQuestions } from "../data/hotTakesData";
 import useGame from "./tempGame";
 import PlayerSetup from "./PlayerSetup";
 
-function WouldYouRather() {
+function HotTakes() {
   const {
     players,
     currentPlayer,
@@ -23,44 +25,45 @@ function WouldYouRather() {
   } = useGame();
 
   const [step, setStep] = useState("players");
-  const [currentPrompt, setCurrentPrompt] = useState(null);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [take, setTake] = useState("");
+  const [response, setResponse] = useState("");
 
-  const getRandomPrompt = () => {
-    const source = wouldYouRatherQuestions[mode];
+  const getRandomTake = () => {
+    const source = hotTakesQuestions[mode];
 
-    if (!source || source.length === 0) {
-      return;
-    }
+    if (!source || source.length === 0) return;
 
     const random = source[Math.floor(Math.random() * source.length)];
-    setCurrentPrompt(random);
-    setSelectedOption("");
+    setTake(random);
+    setResponse("");
     setStep("question");
   };
 
   const handleModeSelect = (selectedMode) => {
     setMode(selectedMode);
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setTake("");
+    setResponse("");
     setStep("ready");
   };
 
-  const handleSelect = (option) => {
-    if (selectedOption) return;
-    setSelectedOption(option);
+  const handleAgree = () => {
+    setResponse("agree");
+  };
+
+  const handleDisagree = () => {
+    setResponse("disagree");
   };
 
   const handleNextPlayer = () => {
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setTake("");
+    setResponse("");
     nextTurn();
     setStep("ready");
   };
 
   const handleReset = () => {
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setTake("");
+    setResponse("");
     setStep("players");
     resetContextGame();
   };
@@ -86,11 +89,11 @@ function WouldYouRather() {
           </div>
 
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            Would You Rather
+            Hot Takes
           </h1>
 
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/65 sm:text-base">
-            Pick your poison and defend your choice.
+            Drop bold opinions, defend your take, and let the group go wild.
           </p>
         </motion.div>
 
@@ -111,11 +114,11 @@ function WouldYouRather() {
               </div>
 
               <h2 className="text-2xl font-semibold sm:text-3xl">
-                Pick your vibe
+                Pick your mode
               </h2>
 
               <p className="mt-3 text-sm text-white/60 sm:text-base">
-                Choose your mode first.
+                Choose whether this debate gets messy or just loud.
               </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -129,7 +132,7 @@ function WouldYouRather() {
                   </div>
                   <h3 className="text-xl font-semibold">Drinking Mode</h3>
                   <p className="mt-2 text-sm text-white/65">
-                    Riskier choices for a messier night.
+                    Defend your take or make someone sip.
                   </p>
                 </button>
 
@@ -143,7 +146,7 @@ function WouldYouRather() {
                   </div>
                   <h3 className="text-xl font-semibold">Non-Drinking Mode</h3>
                   <p className="mt-2 text-sm text-white/65">
-                    Spicy choices without the drinks.
+                    Pure debate, chaos, and strong opinions.
                   </p>
                 </button>
               </div>
@@ -171,16 +174,16 @@ function WouldYouRather() {
               </div>
 
               <h2 className="text-2xl font-semibold sm:text-3xl">
-                Ready to choose?
+                Ready to offend the room?
               </h2>
 
               <p className="mt-3 text-sm text-white/60 sm:text-base">
-                No safe option. Just pick one.
+                A hot take is coming. Pick a side and defend it.
               </p>
 
               <button
                 type="button"
-                onClick={getRandomPrompt}
+                onClick={getRandomTake}
                 className="mt-8 rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-8 py-4 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-[1.02]"
               >
                 Start Round
@@ -188,7 +191,7 @@ function WouldYouRather() {
             </div>
           )}
 
-          {step === "question" && currentPrompt && (
+          {step === "question" && take && (
             <div className="text-center">
               <div className="mb-4 flex flex-wrap justify-center gap-3">
                 <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-pink-300">
@@ -200,55 +203,66 @@ function WouldYouRather() {
                 </span>
               </div>
 
-              <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">
-                <Split size={16} />
-                Choose one and own it
+              <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/10 px-4 py-2 text-sm text-orange-300">
+                <BadgeAlert size={16} />
+                Controversial opinion incoming
               </div>
 
-              <p className="mb-8 text-lg text-white/90 sm:text-2xl">
-                {currentPrompt.question}
-              </p>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[currentPrompt.optionA, currentPrompt.optionB].map((option, index) => {
-                  const isPicked = selectedOption === option;
-
-                  return (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={() => handleSelect(option)}
-                      className={`rounded-3xl border p-6 text-left transition duration-300 ${
-                        isPicked
-                          ? "border-pink-400/40 bg-linear-to-br from-pink-500/20 via-purple-500/10 to-transparent"
-                          : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/8"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <p className="text-base font-medium text-white/90 sm:text-lg">
-                          {option}
-                        </p>
-
-                        {isPicked && (
-                          <span className="rounded-full bg-pink-500/20 p-2 text-pink-300">
-                            <Check size={16} />
-                          </span>
-                        )}
-                      </div>
-                    </button>
-                  );
-                })}
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8">
+                <p className="text-lg leading-relaxed text-white/90 sm:text-2xl">
+                  {take}
+                </p>
               </div>
 
-              {selectedOption && (
+              {!response && (
+                <div className="mt-8 flex flex-wrap justify-center gap-4">
+                  <button
+                    type="button"
+                    onClick={handleAgree}
+                    className="rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition duration-300 hover:scale-[1.02]"
+                  >
+                    Agree
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleDisagree}
+                    className="rounded-2xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white/90 transition duration-300 hover:bg-white/10"
+                  >
+                    Disagree
+                  </button>
+                </div>
+              )}
+
+              {response === "agree" && (
                 <div className="mt-8">
-                  <div className="mx-auto inline-flex rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 text-sm text-green-300">
-                    You picked: {selectedOption}
+                  <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 text-sm text-green-300">
+                    <ThumbsUp size={16} />
+                    Hot take supported
                   </div>
-
+                  <p className="mt-4 text-sm text-white/70 sm:text-base">
+                    {currentPlayer} agrees. Now defend it to the group 😌
+                  </p>
                   {mode === "drinking" && (
-                    <p className="mt-4 text-sm text-pink-300">
-                      Anyone who would never choose this takes a sip 🍻
+                    <p className="mt-2 text-sm text-pink-300">
+                      Everyone who disagrees takes a sip 🍻
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {response === "disagree" && (
+                <div className="mt-8">
+                  <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-4 py-2 text-sm text-red-300">
+                    <ThumbsDown size={16} />
+                    Opposition activated
+                  </div>
+                  <p className="mt-4 text-sm text-white/70 sm:text-base">
+                    {currentPlayer} disagrees. Time to argue your side 😏
+                  </p>
+                  {mode === "drinking" && (
+                    <p className="mt-2 text-sm text-pink-300">
+                      The player defending the unpopular take takes a sip 🍻
                     </p>
                   )}
                 </div>
@@ -257,10 +271,10 @@ function WouldYouRather() {
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <button
                   type="button"
-                  onClick={getRandomPrompt}
+                  onClick={getRandomTake}
                   className="rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-6 py-3 text-sm font-semibold text-white"
                 >
-                  Next Prompt
+                  Next Take
                 </button>
 
                 <button
@@ -287,6 +301,14 @@ function WouldYouRather() {
                   Reset
                 </button>
               </div>
+
+              <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/60">
+                <div className="mb-2 flex items-center justify-center gap-2 text-white/80">
+                  <MessageSquare size={15} />
+                  Debate Rule
+                </div>
+                Give your reason in one line before the group reacts.
+              </div>
             </div>
           )}
         </div>
@@ -295,4 +317,4 @@ function WouldYouRather() {
   );
 }
 
-export default WouldYouRather;
+export default HotTakes;

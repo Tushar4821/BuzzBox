@@ -5,14 +5,14 @@ import {
   Flame,
   GlassWater,
   Users,
-  Split,
-  Check,
+  EyeOff,
+  Laugh,
 } from "lucide-react";
-import { wouldYouRatherQuestions } from "../data/wouldYouRatherData";
+import { neverHaveIEverQuestions } from "../data/neverHaveIEverData";
 import useGame from "./tempGame";
 import PlayerSetup from "./PlayerSetup";
 
-function WouldYouRather() {
+function NeverHaveIEver() {
   const {
     players,
     currentPlayer,
@@ -23,44 +23,43 @@ function WouldYouRather() {
   } = useGame();
 
   const [step, setStep] = useState("players");
-  const [currentPrompt, setCurrentPrompt] = useState(null);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [currentStatement, setCurrentStatement] = useState("");
+  const [revealed, setRevealed] = useState(false);
 
-  const getRandomPrompt = () => {
-    const source = wouldYouRatherQuestions[mode];
+  const getRandomStatement = () => {
+    const source = neverHaveIEverQuestions[mode];
 
     if (!source || source.length === 0) {
       return;
     }
 
     const random = source[Math.floor(Math.random() * source.length)];
-    setCurrentPrompt(random);
-    setSelectedOption("");
+    setCurrentStatement(random);
+    setRevealed(false);
     setStep("question");
   };
 
   const handleModeSelect = (selectedMode) => {
     setMode(selectedMode);
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setCurrentStatement("");
+    setRevealed(false);
     setStep("ready");
   };
 
-  const handleSelect = (option) => {
-    if (selectedOption) return;
-    setSelectedOption(option);
+  const handleReveal = () => {
+    setRevealed(true);
   };
 
   const handleNextPlayer = () => {
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setCurrentStatement("");
+    setRevealed(false);
     nextTurn();
     setStep("ready");
   };
 
   const handleReset = () => {
-    setCurrentPrompt(null);
-    setSelectedOption("");
+    setCurrentStatement("");
+    setRevealed(false);
     setStep("players");
     resetContextGame();
   };
@@ -86,11 +85,11 @@ function WouldYouRather() {
           </div>
 
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            Would You Rather
+            Never Have I Ever
           </h1>
 
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/65 sm:text-base">
-            Pick your poison and defend your choice.
+            Expose the group, one confession at a time.
           </p>
         </motion.div>
 
@@ -129,7 +128,7 @@ function WouldYouRather() {
                   </div>
                   <h3 className="text-xl font-semibold">Drinking Mode</h3>
                   <p className="mt-2 text-sm text-white/65">
-                    Riskier choices for a messier night.
+                    Wilder confessions for a chaotic night.
                   </p>
                 </button>
 
@@ -143,7 +142,7 @@ function WouldYouRather() {
                   </div>
                   <h3 className="text-xl font-semibold">Non-Drinking Mode</h3>
                   <p className="mt-2 text-sm text-white/65">
-                    Spicy choices without the drinks.
+                    Fun and spicy without the drinks.
                   </p>
                 </button>
               </div>
@@ -171,16 +170,16 @@ function WouldYouRather() {
               </div>
 
               <h2 className="text-2xl font-semibold sm:text-3xl">
-                Ready to choose?
+                Ready to expose the group?
               </h2>
 
               <p className="mt-3 text-sm text-white/60 sm:text-base">
-                No safe option. Just pick one.
+                Tap below and see who has actually done it.
               </p>
 
               <button
                 type="button"
-                onClick={getRandomPrompt}
+                onClick={getRandomStatement}
                 className="mt-8 rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-8 py-4 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-[1.02]"
               >
                 Start Round
@@ -188,7 +187,7 @@ function WouldYouRather() {
             </div>
           )}
 
-          {step === "question" && currentPrompt && (
+          {step === "question" && currentStatement && (
             <div className="text-center">
               <div className="mb-4 flex flex-wrap justify-center gap-3">
                 <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-pink-300">
@@ -201,54 +200,38 @@ function WouldYouRather() {
               </div>
 
               <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">
-                <Split size={16} />
-                Choose one and own it
+                <EyeOff size={16} />
+                Time for honesty
               </div>
 
-              <p className="mb-8 text-lg text-white/90 sm:text-2xl">
-                {currentPrompt.question}
-              </p>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[currentPrompt.optionA, currentPrompt.optionB].map((option, index) => {
-                  const isPicked = selectedOption === option;
-
-                  return (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={() => handleSelect(option)}
-                      className={`rounded-3xl border p-6 text-left transition duration-300 ${
-                        isPicked
-                          ? "border-pink-400/40 bg-linear-to-br from-pink-500/20 via-purple-500/10 to-transparent"
-                          : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/8"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <p className="text-base font-medium text-white/90 sm:text-lg">
-                          {option}
-                        </p>
-
-                        {isPicked && (
-                          <span className="rounded-full bg-pink-500/20 p-2 text-pink-300">
-                            <Check size={16} />
-                          </span>
-                        )}
-                      </div>
-                    </button>
-                  );
-                })}
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8">
+                <p className="text-lg leading-relaxed text-white/90 sm:text-2xl">
+                  {currentStatement}
+                </p>
               </div>
 
-              {selectedOption && (
+              {!revealed ? (
+                <button
+                  type="button"
+                  onClick={handleReveal}
+                  className="mt-8 rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-8 py-4 text-base font-semibold text-white shadow-lg transition duration-300 hover:scale-[1.02]"
+                >
+                  Reveal Reactions
+                </button>
+              ) : (
                 <div className="mt-8">
-                  <div className="mx-auto inline-flex rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 text-sm text-green-300">
-                    You picked: {selectedOption}
+                  <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 text-sm text-green-300">
+                    <Laugh size={16} />
+                    If you have done it, own it
                   </div>
 
-                  {mode === "drinking" && (
-                    <p className="mt-4 text-sm text-pink-300">
-                      Anyone who would never choose this takes a sip 🍻
+                  {mode === "drinking" ? (
+                    <p className="mt-4 text-sm text-pink-300 sm:text-base">
+                      Anyone who has done it takes a sip 🍻
+                    </p>
+                  ) : (
+                    <p className="mt-4 text-sm text-blue-300 sm:text-base">
+                      Anyone who has done it raises a hand 😏
                     </p>
                   )}
                 </div>
@@ -257,10 +240,10 @@ function WouldYouRather() {
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <button
                   type="button"
-                  onClick={getRandomPrompt}
+                  onClick={getRandomStatement}
                   className="rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-6 py-3 text-sm font-semibold text-white"
                 >
-                  Next Prompt
+                  Next Statement
                 </button>
 
                 <button
@@ -295,4 +278,4 @@ function WouldYouRather() {
   );
 }
 
-export default WouldYouRather;
+export default NeverHaveIEver;
