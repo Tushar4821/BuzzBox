@@ -88,7 +88,7 @@ shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
             Challenges
           </NavLink>
 
-          <NavLink to="/categories" onClick={() => setIsOpen(false)} className="block text-gray-300 hover:text-white">
+          <NavLink to="/high-mode" onClick={() => setIsOpen(false)} className="block text-gray-300 hover:text-white">
             High Mode
           </NavLink>
 
