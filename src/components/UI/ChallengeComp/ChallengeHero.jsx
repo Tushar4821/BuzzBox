@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Flame, Zap, Users, Trophy } from "lucide-react";
-import heroImg from '../../../assets/gameImg/ChallengeHero.jpg'
+import heroImg from '../../../assets/gameImg/challengeHero.jpg'
 
 function ChallengeHero() {
   return (
