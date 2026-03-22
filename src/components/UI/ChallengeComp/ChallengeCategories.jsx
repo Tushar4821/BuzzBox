@@ -1,64 +1,89 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
 import { Users, Heart, GlassWater, Flame, ArrowRight } from "lucide-react";
 
-import groupImg from '../../../assets/challengeImg/group.jpg';
-import coupleImg from '../../../assets/challengeImg/couple.jpg';
-import drinkImg from '../../../assets/challengeImg/drink.jpg';
-import savageImg from '../../../assets/challengeImg/savage.jpg';
+import groupImg from "../../../assets/challengeImg/group.jpg";
+import coupleImg from "../../../assets/challengeImg/couple.jpg";
+import drinkImg from "../../../assets/challengeImg/drink.jpg";
+import savageImg from "../../../assets/challengeImg/savage.jpg";
 
 function ChallengeCategories() {
-  
-const categories = [
-  {
-    title: "Group Chaos",
-    desc: "Fun, messy, and loud challenges made for friends, parties, and full-on group madness.",
-    icon: <Users size={20} />,
-    badge: "40+ Challenges",
-    image: groupImg,
-    iconBg: "bg-blue-500/20 text-blue-300",
-    overlay: "from-blue-900/40 via-black/30 to-black/70",
-    accent: "from-blue-400 via-cyan-400 to-purple-400",
-    position: "object-center",
-  },
-  {
-    title: "Couple Heat",
-    desc: "Cute, flirty, and spicy challenges perfect for couples, late-night vibes, and playful tension.",
-    icon: <Heart size={20} />,
-    badge: "30+ Challenges",
-    image: coupleImg,
-    iconBg: "bg-pink-500/20 text-pink-300",
-    overlay: "from-pink-900/40 via-black/30 to-black/70",
-    accent: "from-pink-400 via-rose-400 to-purple-400",
-    position: "object-top",
-  },
-  {
-    title: "Drink & Dare",
-    desc: "Turn up the energy with bold party challenges built for drinking mode and chaotic nights.",
-    icon: <GlassWater size={20} />,
-    badge: "35+ Challenges",
-    image: drinkImg,
-    iconBg: "bg-cyan-500/20 text-cyan-300",
-    overlay: "from-cyan-900/40 via-black/30 to-black/70",
-    accent: "from-cyan-400 via-blue-400 to-purple-400",
-    position: "object-center",
-  },
-  {
-    title: "Savage Mode",
-    desc: "Risky, shameless, and reaction-worthy prompts for people who want maximum chaos.",
-    icon: <Flame size={20} />,
-    badge: "25+ Challenges",
-    image: savageImg,
-    iconBg: "bg-orange-500/20 text-orange-300",
-    overlay: "from-orange-900/40 via-black/30 to-black/70",
-    accent: "from-orange-400 via-pink-400 to-red-400",
-    position: "object-top",
-  },
-];
+  const [ripples, setRipples] = useState([]);
+
+  const createRipple = (e, title) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const size = 180;
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+
+    const newRipple = {
+      id: Date.now() + Math.random(),
+      x,
+      y,
+      title,
+    };
+
+    setRipples((prev) => [...prev, newRipple]);
+
+    setTimeout(() => {
+      setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
+    }, 600);
+  };
+
+  const categories = [
+    {
+      title: "Group Chaos",
+      path: "/challenges/group",
+      desc: "Fun, messy, and loud challenges made for friends, parties, and full-on group madness.",
+      icon: <Users size={20} />,
+      badge: "40+ Challenges",
+      image: groupImg,
+      iconBg: "bg-blue-500/20 text-blue-300",
+      overlay: "from-blue-900/40 via-black/30 to-black/70",
+      accent: "from-blue-400 via-cyan-400 to-purple-400",
+      position: "object-center",
+    },
+    {
+      title: "Couple Heat",
+      path: "/challenges/couple",
+      desc: "Cute, flirty, and spicy challenges perfect for couples, late-night vibes, and playful tension.",
+      icon: <Heart size={20} />,
+      badge: "40+ Challenges",
+      image: coupleImg,
+      iconBg: "bg-pink-500/20 text-pink-300",
+      overlay: "from-pink-900/40 via-black/30 to-black/70",
+      accent: "from-pink-400 via-rose-400 to-purple-400",
+      position: "object-top",
+    },
+    {
+      title: "Drink & Dare",
+      path: "/challenges/drink",
+      desc: "Turn up the energy with bold party challenges built for drinking mode and chaotic nights.",
+      icon: <GlassWater size={20} />,
+      badge: "40+ Challenges",
+      image: drinkImg,
+      iconBg: "bg-cyan-500/20 text-cyan-300",
+      overlay: "from-cyan-900/40 via-black/30 to-black/70",
+      accent: "from-cyan-400 via-blue-400 to-purple-400",
+      position: "object-center",
+    },
+    {
+      title: "Savage Mode",
+      path: "/challenges/savage",
+      desc: "Risky, shameless, and reaction-worthy prompts for people who want maximum chaos.",
+      icon: <Flame size={20} />,
+      badge: "40+ Challenges",
+      image: savageImg,
+      iconBg: "bg-orange-500/20 text-orange-300",
+      overlay: "from-orange-900/40 via-black/30 to-black/70",
+      accent: "from-orange-400 via-pink-400 to-red-400",
+      position: "object-top",
+    },
+  ];
 
   return (
     <section className="relative overflow-hidden bg-[#0b0b0f] px-4 py-16 text-white sm:px-6 sm:py-20 lg:px-10">
-      {/* background glow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-pink-500/10 blur-3xl" />
         <div className="absolute right-0 top-20 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
@@ -66,7 +91,6 @@ const categories = [
       </div>
 
       <div className="relative mx-auto max-w-7xl">
-        {/* heading */}
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -92,7 +116,6 @@ const categories = [
           </p>
         </motion.div>
 
-        {/* cards */}
         <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {categories.map((item, index) => (
             <motion.div
@@ -101,71 +124,91 @@ const categories = [
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className="group relative"
+              whileHover={{ rotateX: 4, rotateY: -4, y: -8 }}
+              className="group relative [perspective-distant"
             >
-              {/* glow */}
-              <div
-                className={`absolute inset-0 rounded-[30px] bg-linear-to-r ${item.accent} opacity-0 blur-2xl transition duration-500 group-hover:opacity-20`}
-              />
+              <NavLink to={item.path} className="block">
+                <div
+                  className={`absolute inset-0 rounded-[30px] bg-linear-to-r ${item.accent} opacity-0 blur-2xl transition duration-500 group-hover:opacity-30`}
+                />
 
-              <div className="relative overflow-hidden rounded-[30px] border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl transition duration-300 group-hover:-translate-y-1 group-hover:border-white/20">
-                {/* image area */}
-                <div className="relative h-64 overflow-hidden sm:h-72">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                   className={`h-full w-full object-cover transition duration-500 group-hover:scale-110 ${item.position}`}
-                  />
+                <div
+                  onClick={(e) => createRipple(e, item.title)}
+                  className="relative overflow-hidden rounded-[30px] border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl transition duration-300 group-hover:border-white/20"
+                >
+                  {ripples
+                    .filter((ripple) => ripple.title === item.title)
+                    .map((ripple) => (
+                      <span
+                        key={ripple.id}
+                        className="pointer-events-none absolute rounded-full bg-white/20 animate-ping"
+                        style={{
+                          left: ripple.x,
+                          top: ripple.y,
+                          width: "180px",
+                          height: "180px",
+                        }}
+                      />
+                    ))}
 
-                  <div
-                    className={`absolute inset-0 bg-linear-to-t ${item.overlay}`}
-                  />
+                  <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
+                    <div className="absolute -left-1/3 top-0 h-full w-1/2 rotate-12 bg-white/10 blur-2xl transition duration-700 group-hover:left-full" />
+                  </div>
 
-                  {/* top row */}
-                  <div className="absolute left-4 right-4 top-4 flex items-start justify-between gap-3">
-                    <div
-                      className={`inline-flex rounded-2xl border border-white/10 p-3 backdrop-blur-md ${item.iconBg}`}
-                    >
-                      {item.icon}
+                  <div className="relative h-64 overflow-hidden sm:h-72">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className={`h-full w-full object-cover transition duration-500 group-hover:scale-110 ${item.position}`}
+                    />
+
+                    <div className={`absolute inset-0 bg-linear-to-t ${item.overlay}`} />
+
+                    <div className="absolute left-4 right-4 top-4 flex items-start justify-between gap-3">
+                      <div
+                        className={`inline-flex rounded-2xl border border-white/10 p-3 backdrop-blur-md transition duration-300 group-hover:scale-110 ${item.iconBg}`}
+                      >
+                        {item.icon}
+                      </div>
+
+                      <span className="rounded-full border border-white/10 bg-black/35 px-3 py-1 text-xs font-medium text-white/85 backdrop-blur-md">
+                        {item.badge}
+                      </span>
                     </div>
 
-                    <span className="rounded-full border border-white/10 bg-black/35 px-3 py-1 text-xs font-medium text-white/85 backdrop-blur-md">
-                      {item.badge}
-                    </span>
-                  </div>
-
-                  {/* bottom text on image */}
-                  <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                    <h3 className="text-2xl font-bold text-white sm:text-3xl">
-                      {item.title}
-                    </h3>
-                    <div
-                      className={`mt-2 h-1 w-24 rounded-full bg-linear-to-r ${item.accent}`}
-                    />
-                  </div>
-                </div>
-
-                {/* content area */}
-                <div className="bg-[#0f0f14]/90 p-5 sm:p-6">
-                  <p className="text-sm leading-relaxed text-white/70 sm:text-base">
-                    {item.desc}
-                  </p>
-
-                  <div className="mt-6 flex items-center justify-between gap-3">
-                    <button className="rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:scale-105">
-                      Explore
-                    </button>
-
-                    <div className="flex items-center gap-2 text-sm font-medium text-white/70 transition group-hover:text-white">
-                      View More
-                      <ArrowRight
-                        size={16}
-                        className="transition duration-300 group-hover:translate-x-1"
+                    <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                      <h3 className="text-2xl font-bold text-white sm:text-3xl">
+                        {item.title}
+                      </h3>
+                      <div
+                        className={`mt-2 h-1 w-24 rounded-full bg-linear-to-r transition-all duration-300 group-hover:w-32 ${item.accent}`}
                       />
                     </div>
                   </div>
+
+                  <div className="bg-[#0f0f14]/90 p-5 sm:p-6">
+                    <p className="text-sm leading-relaxed text-white/70 sm:text-base">
+                      {item.desc}
+                    </p>
+
+                    <div className="mt-6 flex items-center justify-between gap-3">
+                      <span className="rounded-2xl bg-linear-to-r from-pink-500 via-purple-500 to-blue-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition duration-300 group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(168,85,247,0.45)]">
+                        Explore
+                      </span>
+
+                      <div className="flex items-center gap-2 text-sm font-medium text-white/70 transition group-hover:text-white">
+                        View More
+                        <ArrowRight
+                          size={16}
+                          className="transition duration-300 group-hover:translate-x-1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pointer-events-none absolute inset-0 rounded-[30px] ring-1 ring-white/0 transition duration-300 group-active:ring-white/20" />
                 </div>
-              </div>
+              </NavLink>
             </motion.div>
           ))}
         </div>

@@ -46,8 +46,8 @@ shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
       Challenges
     </NavLink>
 
-    <NavLink to="/categories" className={navLinkClass}>
-      Categories
+    <NavLink to="/high-mode" className={navLinkClass}>
+     High Mode
     </NavLink>
 
     <NavLink to="/about" className={navLinkClass}>
@@ -89,7 +89,7 @@ shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
           </NavLink>
 
           <NavLink to="/categories" onClick={() => setIsOpen(false)} className="block text-gray-300 hover:text-white">
-            Categories
+            High Mode
           </NavLink>
 
           <NavLink to="/about" onClick={() => setIsOpen(false)} className="block text-gray-300 hover:text-white">

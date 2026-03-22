@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Home from './pages/Home.jsx'
-import Categories from './pages/Categories.jsx'
+import HighMode from './pages/HighMode.jsx'
 import About from './pages/About.jsx'
 import Challenges from './pages/Challenges.jsx'
 import Games from './pages/Games.jsx'
@@ -24,6 +24,10 @@ import ThisOrThatCouples from './games/ThisOrThatCouples.jsx'
 import HowWellDoYouKnowMe from './games/HowWellDoYouKnowMe.jsx'
 import WhoIsTheImposter from './games/WhoIsTheImposter.jsx'
 import RapBattle from './games/RapBattle.jsx'
+import GroupChallenges from './challenges/GroupChallenges.jsx'
+import SavageChallenges from './challenges/SavageChalleneges.jsx'
+import DrinkChallenges from './challenges/DrinkChallenges.jsx'
+import CoupleChallenges from './challenges/CoupleChallenges.jsx'
 
 const router = createBrowserRouter([{
     path : '/',
@@ -102,8 +106,24 @@ const router = createBrowserRouter([{
         element : <Challenges/>
       },
       {
-        path : '/Categories',
-        element : <Categories/>
+      path: "/challenges/group",
+      element: <GroupChallenges/>,
+      },
+      {
+      path: "/challenges/couple",
+      element: <CoupleChallenges/>,
+      },
+      {
+      path: "/challenges/drink",
+      element: <DrinkChallenges/>,
+      },
+      {
+      path: "/challenges/savage",
+      element: <SavageChallenges/>,
+      },
+      {
+        path : '/high-mode',
+        element : <HighMode/>
       },
       {
         path : '/About',
