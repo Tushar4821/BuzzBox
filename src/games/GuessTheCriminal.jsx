@@ -14,7 +14,7 @@ import {
   FileWarning,
   Sparkles,
 } from "lucide-react";
-import { guessTheCriminalCases } from "../data/guessthecriminaldata";
+import { guessTheCriminalCases } from '../data/guessTheCriminalData';
 
 const initialInputs = ["", "", ""];
 

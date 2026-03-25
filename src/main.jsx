@@ -30,7 +30,7 @@ import DrinkChallenges from './challenges/DrinkChallenges.jsx'
 import CoupleChallenges from './challenges/CoupleChallenges.jsx'
 import GuessTheCriminal from './games/GuessTheCriminal.jsx'
 import MafiaGame from './games/MafiaGame.jsx'
-import BluffIQ from './games/BluffIq.jsx'
+import BluffIq from './games/BluffIq.jsx'
 
 const router = createBrowserRouter([{
     path : '/',
@@ -114,7 +114,7 @@ const router = createBrowserRouter([{
       },
       {
       path: "/games/bluff-iq",
-      element: <BluffIQ/>,
+      element: <BluffIq/>,
       },
       {
         path : '/Challenges',

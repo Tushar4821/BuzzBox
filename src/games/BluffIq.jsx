@@ -21,7 +21,7 @@ function prepareQuestions() {
   }));
 }
 
-function BluffIQ() {
+function BluffIq() {
   const [started, setStarted] = useState(false);
   const [questions, setQuestions] = useState(prepareQuestions);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -333,4 +333,4 @@ function BluffIQ() {
   );
 }
 
-export default BluffIQ;
+export default BluffIq;
