@@ -28,6 +28,9 @@ import GroupChallenges from './challenges/GroupChallenges.jsx'
 import SavageChallenges from './challenges/SavageChalleneges.jsx'
 import DrinkChallenges from './challenges/DrinkChallenges.jsx'
 import CoupleChallenges from './challenges/CoupleChallenges.jsx'
+import GuessTheCriminal from './games/GuessTheCriminal.jsx'
+import MafiaGame from './games/MafiaGame.jsx'
+import BluffIQ from './games/BluffIq.jsx'
 
 const router = createBrowserRouter([{
     path : '/',
@@ -100,6 +103,18 @@ const router = createBrowserRouter([{
       {
       path: "/games/rap-battle",
       element: <RapBattle/>,
+      },
+      {
+      path: "/games/guess-the-criminal",
+      element: <GuessTheCriminal/>,
+      },
+      {
+      path: "/games/mafia",
+      element: <MafiaGame/>,
+      },
+      {
+      path: "/games/bluff-iq",
+      element: <BluffIQ/>,
       },
       {
         path : '/Challenges',

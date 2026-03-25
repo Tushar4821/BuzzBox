@@ -23,13 +23,13 @@ shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
      <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
 
   {/* Logo - LEFT */}
-  <div className="flex items-center">
-    <img
-      src={logo}
-      alt="BuzzBox Logo"
-      className="h-14 md:h-16 object-contain"
-    />
-  </div>
+  <NavLink to="/" className="flex items-center">
+  <img
+    src={logo}
+    alt="BuzzBox Logo"
+    className="h-14 object-contain md:h-16"
+  />
+</NavLink>
 
   {/* Nav Links - RIGHT */}
   <nav className="hidden md:flex items-center gap-6 text-sm font-medium">

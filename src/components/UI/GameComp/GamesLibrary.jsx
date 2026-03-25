@@ -16,6 +16,9 @@ import card12 from "../../../assets/gameImg/card12.jpg";
 import card13 from "../../../assets/gameImg/card13.jpg";
 import card14 from "../../../assets/gameImg/card14.jpg";
 import card15 from "../../../assets/gameImg/card15.gif";
+import card16 from "../../../assets/gameImg/card16.jpg"
+import card17 from "../../../assets/gameImg/card17.jpg"
+import card18 from "../../../assets/gameImg/card18.jpg"
 
 function GamesLibrary() {
   const categories = [
@@ -164,6 +167,34 @@ function GamesLibrary() {
       img: card15,
       path: "/games/rap-battle",
     },
+    {
+    title: "Guess The Criminal",
+    desc: "One player is guilty, one is the detective, and the rest must expose the liar before they escape.",
+    category: "Mystery",
+    players: "3+ Players",
+    mode: "Suspense",
+    img: card16,
+    path: "/games/guess-the-criminal",
+     },
+     {
+   title: "Mafia Night",
+   desc: "Lie, accuse, and survive. Mafia eliminates in the dark while the town fights back to uncover the truth.",
+    category: "Mystery",
+    players: "4+ Players",
+    mode: "Suspense",
+    img: card17, 
+    path: "/games/mafia",
+    },
+    {
+  title: "Bluff IQ",
+  desc: "Read the options, catch the fake, and prove your brain sees through the bluff.",
+  category: "Brain Game",
+  players: "2+ Players",
+  mode: "Mind Tricks",
+  img: card18,
+  path: "/games/bluff-iq",
+   }
+
   ];
 
   const [activeCategory, setActiveCategory] = useState("All");
