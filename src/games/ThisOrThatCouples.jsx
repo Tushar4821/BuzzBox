@@ -7,7 +7,6 @@ import {
   Heart,
   MessageCircleHeart,
   MoonStar,
-  ToggleLeft,
 } from "lucide-react";
 import { thisOrThatCouplesData } from "../data/thisOrThatCouplesData";
 
@@ -66,6 +65,13 @@ function ThisOrThatCouples() {
     setQuestion("");
     setPlayers(["", ""]);
     setCurrentPlayerIndex(0);
+  };
+
+  const getModeLabel = () => {
+    if (mode === "drinking") return "Drinking Mode";
+    if (mode === "nonDrinking") return "Non Drinking";
+    if (mode === "naughty") return "Naughty Mode 😈";
+    return "Choose Mode";
   };
 
   return (
@@ -169,34 +175,53 @@ function ThisOrThatCouples() {
               </h2>
 
               <p className="mt-3 text-sm text-white/60 sm:text-base">
-                Pick the mood for your this or that round.
+                Pick how wild or chill you want this round to be.
               </p>
 
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <div className="mt-8 grid gap-4 sm:grid-cols-3">
                 <button
                   onClick={() => handleModeSelect("drinking")}
-                  className="rounded-3xl border border-pink-500/20 bg-linear-to-br from-pink-500/20 via-rose-500/10 to-transparent p-6 text-left transition duration-300 hover:scale-[1.02] hover:border-pink-400/30"
+                  className="group rounded-3xl border border-pink-500/20 bg-linear-to-br from-pink-500/20 via-rose-500/10 to-transparent p-6 text-left transition duration-300 hover:scale-[1.04] hover:border-pink-400/40"
                 >
-                  <div className="mb-4 inline-flex rounded-2xl bg-pink-500/15 p-3 text-pink-300">
+                  <div className="mb-4 inline-flex rounded-2xl bg-pink-500/15 p-3 text-pink-300 transition group-hover:scale-110">
                     <Flame size={22} />
                   </div>
-                  <h3 className="text-xl font-semibold">Deep Mode (Spicy)</h3>
+                  <h3 className="text-xl font-semibold">Drinking Mode</h3>
                   <p className="mt-2 text-sm text-white/65">
-                    Bolder picks, flirtier tension, and riskier choices.
+                    Spicy, bold and perfect for party vibes.
                   </p>
                 </button>
 
                 <button
                   onClick={() => handleModeSelect("nonDrinking")}
-                  className="rounded-3xl border border-purple-500/20 bg-linear-to-br from-purple-500/20 via-blue-500/10 to-transparent p-6 text-left transition duration-300 hover:scale-[1.02] hover:border-purple-400/30"
+                  className="group rounded-3xl border border-purple-500/20 bg-linear-to-br from-purple-500/20 via-blue-500/10 to-transparent p-6 text-left transition duration-300 hover:scale-[1.04] hover:border-purple-400/40"
                 >
-                  <div className="mb-4 inline-flex rounded-2xl bg-purple-500/15 p-3 text-purple-300">
+                  <div className="mb-4 inline-flex rounded-2xl bg-purple-500/15 p-3 text-purple-300 transition group-hover:scale-110">
                     <GlassWater size={22} />
                   </div>
-                  <h3 className="text-xl font-semibold">Heart Mode (Soft)</h3>
+                  <h3 className="text-xl font-semibold">Non Drinking</h3>
                   <p className="mt-2 text-sm text-white/65">
-                    Sweet, romantic, and meaningful couple choices.
+                    Chill, romantic and meaningful choices.
                   </p>
+                </button>
+
+                <button
+                  onClick={() => handleModeSelect("naughty")}
+                  className="group relative overflow-hidden rounded-3xl border border-rose-500/30 bg-linear-to-br from-rose-500/25 via-pink-500/10 to-transparent p-6 text-left transition duration-300 hover:scale-[1.06] hover:border-rose-400/50"
+                >
+                  <div className="absolute inset-0 opacity-0 transition group-hover:opacity-100 bg-pink-500/10 blur-xl" />
+
+                  <div className="relative z-10">
+                    <div className="mb-4 inline-flex rounded-2xl bg-rose-500/20 p-3 text-rose-300 transition group-hover:scale-110">
+                      <MessageCircleHeart size={22} />
+                    </div>
+
+                    <h3 className="text-xl font-semibold">Naughty Mode 😈</h3>
+
+                    <p className="mt-2 text-sm text-white/65">
+                      No filters. Bold, teasing & dangerously fun.
+                    </p>
+                  </div>
                 </button>
               </div>
             </div>
@@ -210,7 +235,7 @@ function ThisOrThatCouples() {
                 </span>
 
                 <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/75">
-                  {mode === "drinking" ? "Deep Mode (Spicy)" : "Heart Mode (Soft)"}
+                  {getModeLabel()}
                 </span>
               </div>
 
@@ -237,66 +262,66 @@ function ThisOrThatCouples() {
           )}
 
           {step === "question" && question && (
-  <div className="text-center">
-    <div className="mb-5 flex flex-wrap items-center justify-center gap-3">
-      <span className="rounded-full border border-pink-400/20 bg-pink-400/10 px-4 py-2 text-sm text-pink-200">
-        {currentPlayer}'s Turn
-      </span>
-    </div>
+            <div className="text-center">
+              <div className="mb-5 flex flex-wrap items-center justify-center gap-3">
+                <span className="rounded-full border border-pink-400/20 bg-pink-400/10 px-4 py-2 text-sm text-pink-200">
+                  {currentPlayer}'s Turn
+                </span>
 
-    {/* SPLIT QUESTION */}
-    {(() => {
-      const [left, right] = question.split(" or ");
+                <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/75">
+                  {getModeLabel()}
+                </span>
+              </div>
 
-      return (
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]"
-        >
-          {/* LEFT OPTION */}
-          <div className="rounded-3xl border border-pink-500/20 bg-linear-to-br from-pink-500/20 to-transparent p-6 text-center hover:scale-[1.02] transition">
-            <p className="text-lg font-semibold">{left}</p>
-          </div>
+              {(() => {
+                const cleanedQuestion = question.replace(/\?$/, "");
+                const [left, right] = cleanedQuestion.split(" or ");
 
-          {/* OR */}
-          <div className="text-center">
-            <span className="text-sm text-white/50">OR</span>
-          </div>
+                return (
+                  <motion.div
+                    initial={{ opacity: 0, y: 22 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]"
+                  >
+                    <div className="rounded-3xl border border-pink-500/20 bg-linear-to-br from-pink-500/20 to-transparent p-6 text-center transition hover:scale-[1.02]">
+                      <p className="text-lg font-semibold">{left}</p>
+                    </div>
 
-          {/* RIGHT OPTION */}
-          <div className="rounded-3xl border border-purple-500/20 bg-linear-to-br from-purple-500/20 to-transparent p-6 text-center hover:scale-[1.02] transition">
-            <p className="text-lg font-semibold">{right}</p>
-          </div>
-        </motion.div>
-      );
-    })()}
+                    <div className="text-center">
+                      <span className="text-sm text-white/50">OR</span>
+                    </div>
 
-    {/* ACTIONS */}
-    <div className="mt-8 flex flex-wrap justify-center gap-4">
-      <button
-        onClick={getRandomQuestion}
-        className="rounded-2xl bg-linear-to-r from-pink-500 via-rose-500 to-purple-500 px-6 py-3 font-semibold text-white"
-      >
-        Next Question
-      </button>
+                    <div className="rounded-3xl border border-purple-500/20 bg-linear-to-br from-purple-500/20 to-transparent p-6 text-center transition hover:scale-[1.02]">
+                      <p className="text-lg font-semibold">{right}</p>
+                    </div>
+                  </motion.div>
+                );
+              })()}
 
-      <button
-        onClick={handleNextPlayer}
-        className="rounded-2xl border border-white/10 bg-white/5 px-6 py-3"
-      >
-        Next Partner
-      </button>
+              <div className="mt-8 flex flex-wrap justify-center gap-4">
+                <button
+                  onClick={getRandomQuestion}
+                  className="rounded-2xl bg-linear-to-r from-pink-500 via-rose-500 to-purple-500 px-6 py-3 font-semibold text-white"
+                >
+                  Next Question
+                </button>
 
-      <button
-        onClick={handleReset}
-        className="rounded-2xl border border-white/10 bg-white/5 px-6 py-3"
-      >
-        Reset
-      </button>
-    </div>
-  </div>
-)}
+                <button
+                  onClick={handleNextPlayer}
+                  className="rounded-2xl border border-white/10 bg-white/5 px-6 py-3"
+                >
+                  Next Partner
+                </button>
+
+                <button
+                  onClick={handleReset}
+                  className="rounded-2xl border border-white/10 bg-white/5 px-6 py-3"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

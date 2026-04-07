@@ -31,6 +31,8 @@ import CoupleChallenges from './challenges/CoupleChallenges.jsx'
 import GuessTheCriminal from './games/GuessTheCriminal.jsx'
 import MafiaGame from './games/MafiaGame.jsx'
 import BluffIq from './games/BluffIq.jsx'
+import RollTheDice from './games/RollTheDice.jsx'
+import CommandCards from './games/CommandCards.jsx'
 
 const router = createBrowserRouter([{
     path : '/',
@@ -115,6 +117,14 @@ const router = createBrowserRouter([{
       {
       path: "/games/bluff-iq",
       element: <BluffIq/>,
+      },
+      {
+      path: "/games/roll-the-dice",
+      element: <RollTheDice/>,
+      },
+      {
+      path: "/games/command-cards",
+      element: <CommandCards/>,
       },
       {
         path : '/Challenges',

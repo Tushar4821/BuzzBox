@@ -19,6 +19,9 @@ import card15 from "../../../assets/gameImg/card15.gif";
 import card16 from "../../../assets/gameImg/card16.jpg"
 import card17 from "../../../assets/gameImg/card17.jpg"
 import card18 from "../../../assets/gameImg/card18.jpg"
+import card19 from "../../../assets/gameImg/card19.jpg"
+import card20 from "../../../assets/gameImg/card20.jpg"
+
 
 function GamesLibrary() {
   const categories = [
@@ -193,7 +196,28 @@ function GamesLibrary() {
   mode: "Mind Tricks",
   img: card18,
   path: "/games/bluff-iq",
-   }
+   },
+   {
+  title: "Roll The Dice",
+  desc: "Roll the action, body, and style dice to create a fun random couple challenge every turn.",
+  category: "Couple Game",
+  players: "2 Players",
+  mode: "Romantic / Playful",
+  img: card19,
+  path: "/games/roll-the-dice",
+},
+
+ {
+  title: "Filthy Command Cards",
+  desc: "Draw seductive, hot, or completely filthy commands. Perfect for couples who want to escalate from teasing to wild nights.",
+  category: "Couple Game",
+  players: "2 Players",
+  mode: "Tease • Hot • Filthy",
+  difficulty: "Medium to Hardcore",
+  img: card20,
+  path: "/games/command-cards",
+  tags: ["dirty talk", "foreplay", "commands", "intimate", "kinky"],
+},
 
   ];
 

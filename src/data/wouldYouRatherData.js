@@ -312,4 +312,181 @@ export const wouldYouRatherQuestions = {
       optionB: "lose them completely",
     },
   ],
+  naughty: [
+    {
+      question: "Would you rather...",
+      optionA: "have sex only in the missionary position",
+      optionB: "have sex only in doggy style for the rest of your life"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "give oral sex every time",
+      optionB: "receive oral sex every time"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "ride cowgirl",
+      optionB: "ride reverse cowgirl for the rest of your life"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have rough sex",
+      optionB: "have gentle passionate sex every night"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have sex with lights on",
+      optionB: "have sex completely in the dark forever"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "be tied up and teased",
+      optionB: "tie up your partner"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "do it in the shower",
+      optionB: "do it on the kitchen counter"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have sex in public where you might get caught",
+      optionB: "have sex only in total privacy"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "use toys every time",
+      optionB: "go completely hands-free"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have morning sex",
+      optionB: "have midnight sex every day"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "be spanked hard",
+      optionB: "do the spanking"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "69",
+      optionB: "be eaten out/sucked off while lying back"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have sex standing against a wall",
+      optionB: "have sex sitting on a chair"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "talk dirty the whole time",
+      optionB: "stay completely silent"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have anal sex",
+      optionB: "stick to vaginal/oral only"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "choke your partner (lightly)",
+      optionB: "get choked"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have sex in a car",
+      optionB: "have sex in a public park at night"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "be blindfolded",
+      optionB: "blindfold your partner"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have slow teasing foreplay",
+      optionB: "jump straight to penetration"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "do it in front of a mirror",
+      optionB: "record yourselves on video"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have sex once a week for hours",
+      optionB: "have sex every day but quickies"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "be dominant in bed",
+      optionB: "be submissive"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "use lube every time",
+      optionB: "go completely natural"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have nipple play",
+      optionB: "have ass play"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have sex on the beach",
+      optionB: "have sex on a fancy hotel balcony"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "cum inside",
+      optionB: "pull out every time"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "roleplay as strangers",
+      optionB: "roleplay as teacher/student"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have your hair pulled",
+      optionB: "have your wrists pinned down"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "watch your partner masturbate",
+      optionB: "let them watch you"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have sex with loud music",
+      optionB: "have sex in total silence"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "do it in the office after hours",
+      optionB: "do it in an elevator"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have multiple orgasms",
+      optionB: "have one intense orgasm"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "give a striptease",
+      optionB: "receive one"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "use handcuffs",
+      optionB: "use a blindfold and earplugs"
+    },
+    {
+      question: "Would you rather...",
+      optionA: "have a quickie in a club bathroom",
+      optionB: "have a long session in a tent"
+    }
+  ],
 };
